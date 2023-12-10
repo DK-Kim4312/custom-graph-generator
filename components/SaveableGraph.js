@@ -31,6 +31,10 @@ const SaveableGraph = () => {
       setDataPoints([...dataPoints, parseFloat(newDataPoint)]);
     }
   };
+  
+  const handleDeleteAllDataPoints = () => {
+    setDataPoints([]);
+  };
 
   const saveAsImage = () => {
     const canvasSave = document.getElementById('graphLine');
@@ -89,6 +93,7 @@ const SaveableGraph = () => {
         />
       </div>
       <button onClick={handleAddDataPoint}>Add Data Point</button>
+      <button onClick={handleDeleteAllDataPoints}>Delete All Data Points</button>
       <button onClick={saveAsImage}>Save as PNG</button>
       <Line id = "graphLine" data={chartData} options={chartOptions} ref={graphRef} />
     </div>
