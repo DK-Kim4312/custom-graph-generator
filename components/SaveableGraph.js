@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { Line } from 'react-chartjs-2';
-import html2canvas from 'html2canvas';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Chart }            from 'react-chartjs-2'
+import { saveAs } from 'file-saver';
 
 const SaveableGraph = () => {
   const [xAxisLabel, setXAxisLabel] = useState('X-Axis');
@@ -33,12 +33,9 @@ const SaveableGraph = () => {
   };
 
   const saveAsImage = () => {
-    html2canvas(graphRef.current).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.href = imgData;
-      link.download = 'graph.png';
-      link.click();
+    const canvasSave = document.getElementById('graphLine');
+    canvasSave.toBlob(function(blob) {
+      saveAs(blob, "graph.png");
     });
   };
 
@@ -93,7 +90,7 @@ const SaveableGraph = () => {
       </div>
       <button onClick={handleAddDataPoint}>Add Data Point</button>
       <button onClick={saveAsImage}>Save as PNG</button>
-      <Line data={chartData} options={chartOptions} ref={graphRef} />
+      <Line id = "graphLine" data={chartData} options={chartOptions} ref={graphRef} />
     </div>
   );
 };
